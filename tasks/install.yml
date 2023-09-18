@@ -1,24 +1,16 @@
 ---
-- include_tasks: "setup-{{ ansible_os_family | lower }}.yml"
+- ansible.builtin.include_tasks: "setup-{{ ansible_os_family | lower }}.yml"
 
-- name: Download restic
-  ansible.builtin.get_url:
-    url: "https://github.com/restic/restic/releases/download/v{{ restic_version }}/restic_{{ restic_version }}_linux_amd64.bz2"
-    dest: "/tmp/restic_{{ restic_version }}_linux_amd64.bz2"
 
-- name: Extract restic
-  command: "bzip2 -d /tmp/restic_{{ restic_version }}_linux_amd64.bz2"
-  args:
-    creates: "/tmp/restic_{{ restic_version }}_linux_amd64"
+- name: "include debian apt"
+  ansible.builtin.include_tasks: "install-apt.yml"
+  when: ansible_os_family | lower == "debian"
 
-- name: Install restic
-  ansible.builtin.copy:
-    remote_src: true
-    src: "/tmp/restic_{{ restic_version }}_linux_amd64"
-    dest: "{{ restic_path }}"
-    mode: 0755
+- name: "include debian vars"
+  ansible.builtin.include_vars: "debian.yml"
+  when: ansible_os_family | lower == "debian"
 
-- name: Remove downloaded file
-  ansible.builtin.file:
-    path: "/tmp/restic_{{ restic_version }}_linux_amd64"
-    state: absent
+
+- name: "include install github"
+  ansible.builtin.include_tasks: "install-github.yml"
+  when: ansible_os_family | lower != "debian"

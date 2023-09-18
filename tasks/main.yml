@@ -1,11 +1,5 @@
 ---
-- name: Check if restic is installed
-  ansible.builtin.stat:
-    path: "{{ restic_path }}"
-  register: restic_binary
-
 - include_tasks: install.yml
-  when: not restic_binary.stat.exists or restic_install
 
 - name: Overwrite SSH config for backup server
   ansible.builtin.template:
