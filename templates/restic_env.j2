@@ -9,3 +9,8 @@ RESTIC_PASSWORD={{ restic_password}}
 AWS_ACCESS_KEY_ID={{ restic_aws_access_key_id}}
 AWS_SECRET_ACCESS_KEY={{ restic_aws_secret_access_key}}
 {% endif %}
+
+{% if restic_b2_account_id is defined and restic_b2_account_key is defined %}
+B2_ACCOUNT_ID={{ restic_b2_account_id }}
+B2_ACCOUNT_KEY={{ restic_b2_account_key }}
+{% endif %}
