@@ -119,7 +119,3 @@ Of course, `restic_password` and `restic_ssh_private_key` should be stored using
 ## License
 
 MIT
-
-## Author Information
-
-See my other Ansible roles at [angristan/ansible-roles](https://github.com/angristan/ansible-roles).
